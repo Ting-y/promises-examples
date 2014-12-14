@@ -4,7 +4,7 @@ var httpGet = function (callback) {
     'use strict';
     setTimeout(function () {
         // node style callback(err, response)
-        callback(null, 'A message from httpGet');
+        callback(null, 'The promise is fulfilled');
     }, 1000);
 };
 
@@ -21,50 +21,59 @@ var httpPost = function (data, callback) {
         callback(null, data);
     }, 2000);
 };
+
+
 //promise.denodeify() can use in the node style callback(err, response)
 var getDate = promise.denodeify(httpGet),
     getError = promise.denodeify(httpGetError),
     saveData = promise.denodeify(httpPost);
 
 
-// Pattern
-// promise.then(reslovedCallback, rejectedCallback);
-// only 1 callback will fireup in 1 promise, either resolved or rejected
-
 //Example 1 (Promise with fullfilled)
 getDate().then(function (value) {
     'use strict';
-    // fulfilled
-    console.log('Messsage from getDate(): ' + value);
+    // Resolved
+    console.log(value);
 }, function (reason) {
     'use strict';
-    //it will fire up, if callback 1st paramter is not null
     console.log(reason);
 });
+// OUTPUT:
+// The promise is fulfilled
+
+
+
 //Example 2 (Promise with rejected)
 getError().then(function (value) {
     'use strict';
     console.log(value);
 }, function (reason) {
     'use strict';
-    console.log('Message from getError(): ' + reason);
+    console.log(reason);
 });
+// OUTPUT:
+// Oops! something went wrong
+
+
 
 //Example 3 (Chaining)
-getDate().then(function (value) {  // value = 'A message from httpGet'
+getDate().then(function (value) { 
     'use strict';
     value = 'Promise is awesome'; // modify the value 
     return saveData(value); // return a promise
 })
     .then(function (value) {
         'use strict';
-        console.log(value); // 'Promise is awesome' 
-        return getError();
+        console.log(value); 
+        return getError(); // rejectedcallback will fire up
     })
     .then(function (value) {
         'use strict';
         console.log(value);
     }, function (reason) {
         'use strict';
-        console.log(reason + ' again!!'); // 'Oops! something went wrong'
+        console.log(reason + ' again!!');
     });
+// OUTPUT: 
+// Promise is awesome
+// Oops! something went wrong again!!

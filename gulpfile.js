@@ -1,7 +1,7 @@
 var gulp = require('gulp');
 var jslint = require('gulp-jslint');
 var dir = ['./*.js'];
-// JS hint task
+// JSlint task
 gulp.task('lint', function () {
     'use strict';
     return gulp.src(dir)
