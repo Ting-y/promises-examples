@@ -1,0 +1,22 @@
+{
+  "name": "promises-example",
+  "version": "0.0.0",
+  "description": "An example of use promises in nodejs",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "add later"
+  },
+  "keywords": [
+    "promises",
+    "node.js"
+  ],
+  "license": "No license",
+  "dependencies": {
+    "promise": "^6.0.1"
+  },
+  "devDependencies": {
+    "gulp": "^3.8.10",
+    "gulp-jslint": "^0.2.1"
+  }
+}
