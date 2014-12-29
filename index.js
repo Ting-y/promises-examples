@@ -1,7 +1,7 @@
+'use strict';
 var promise = require('promise');
 // dummy funnctions
 var httpGet = function (callback) {
-    'use strict';
     setTimeout(function () {
         // node style callback(err, response)
         callback(null, 'The promise is fulfilled');
@@ -9,14 +9,12 @@ var httpGet = function (callback) {
 };
 
 var httpGetError = function (callback) {
-    'use strict';
     setTimeout(function () {
         callback('Oops! something went wrong', null);
     }, 2000);
 };
 
 var httpPost = function (data, callback) {
-    'use strict';
     setTimeout(function () {
         callback(null, data);
     }, 2000);
@@ -31,11 +29,9 @@ var getDate = promise.denodeify(httpGet),
 
 //Example 1 (Promise with fullfilled)
 getDate().then(function (value) {
-    'use strict';
     // Resolved
     console.log(value);
 }, function (reason) {
-    'use strict';
     console.log(reason);
 });
 // OUTPUT:
@@ -45,10 +41,8 @@ getDate().then(function (value) {
 
 //Example 2 (Promise with rejected)
 getError().then(function (value) {
-    'use strict';
     console.log(value);
 }, function (reason) {
-    'use strict';
     console.log(reason);
 });
 // OUTPUT:
@@ -57,21 +51,17 @@ getError().then(function (value) {
 
 
 //Example 3 (Chaining)
-getDate().then(function (value) { 
-    'use strict';
+getDate().then(function (value) {
     value = 'Promise is awesome'; // modify the value 
     return saveData(value); // return a promise
 })
     .then(function (value) {
-        'use strict';
-        console.log(value); 
+        console.log(value);
         return getError(); // rejectedcallback will fire up
     })
     .then(function (value) {
-        'use strict';
         console.log(value);
     }, function (reason) {
-        'use strict';
         console.log(reason + ' again!!');
     });
 // OUTPUT: 

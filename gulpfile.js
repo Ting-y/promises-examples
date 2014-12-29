@@ -1,10 +1,10 @@
 var gulp = require('gulp');
 var jslint = require('gulp-jslint');
-var dir = ['./*.js'];
+var files = ['./*.js'];
 // JSlint task
 gulp.task('lint', function () {
     'use strict';
-    return gulp.src(dir)
+    return gulp.src(files)
         .pipe(jslint({
             node: true,
             reporter: 'default'
@@ -12,7 +12,9 @@ gulp.task('lint', function () {
 });
 gulp.task('default', ['lint'], function () {
     'use strict';
-    gulp.watch(dir, function () {
+    gulp.watch(files, function () {
         gulp.run('lint');
     });
 });
+
+
